@@ -10,7 +10,6 @@
     // Form Text
     let text = 'some task';
 
-    // Query requires an index, see screenshot below
     const query = db.collection('todos').where('uid', '==', uid).orderBy('created');
 
     const todos = collectionData(query, 'id').pipe(startWith([]));
