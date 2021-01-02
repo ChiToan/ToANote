@@ -2,6 +2,10 @@ html, body {
 	position: relative;
 	width: 100%;
 	height: 100%;
+	--primary-accent: cadetblue;
+	--primary-font: ghostwhite;
+	--background-color: ghostwhite;
+	--background-font: black;
 }
 
 body {
@@ -32,12 +36,11 @@ label {
 input, button, select, textarea {
 	font-family: inherit;
 	font-size: inherit;
-	-webkit-padding: 0.4em 0;
 	padding: 0.4em;
 	margin: 0 0 0.5em 0;
 	box-sizing: border-box;
 	border: 1px solid #ccc;
-	border-radius: 2px;
+	border-radius: 6px;
 }
 
 input:disabled {
@@ -45,13 +48,18 @@ input:disabled {
 }
 
 button {
-	color: #333;
-	background-color: #f4f4f4;
+	background-color: var(--background-color);
+	color: var(--background-font);
 	outline: none;
 }
 
 button:disabled {
 	color: #999;
+}
+
+button:hover {
+	filter: brightness(110%);
+	cursor: pointer;
 }
 
 button:not(:disabled):active {
