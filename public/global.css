@@ -54,7 +54,7 @@ button {
 }
 
 button:disabled {
-	color: #999;
+	color: #aaa;
 }
 
 button:hover {
