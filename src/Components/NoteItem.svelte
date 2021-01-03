@@ -20,31 +20,28 @@
     }
 
     export let note: NoteType;
+    export let colorPalette: String[];
+
     let editing: boolean = false;
     let newNote = {...note};
 </script>
 
 <style>
     li {
-        font-size: 1.2em;
-        font-weight: bold;
         list-style: none;
+    }
+
+    .card {
+        padding: 1em;
+        box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
 
     li span, label {
         display: block;
     }
-
-    div {
-        background-color: var(--background-color);
-    }
-
-    span {
-        margin-right: auto;
-    }
 </style>
 
-<li in:fly="{{ x: 900, duration: 500 }}" out:fade>
+<li in:fly="{{ x: 900, duration: 500 }}" out:fade class="card" style="background-color: {colorPalette[note.color]}">
 
     {#if editing}
         <label> Title

@@ -28,7 +28,6 @@
         <hr>
         <h3>Todo list</h3>
         <Todos uid={user.uid}/>
-        <h3>Notes list</h3>
         <Notes uid={user.uid}/>
     {:else}
         <button on:click={login} class="button">
