@@ -8,32 +8,35 @@
     // User ID passed from parent
     export let uid;
 
+    let emptyNote: Partial<NoteType> = {
+        title: '',
+        text: '',
+        color: '',
+        tags: [],
+        pinned: false,
+    }
+
     // Form inputs
-    let text = '';
-    let color = '';
-    let tags = [];
-    let pinned = false;
+    let newNote: Partial<NoteType> = {...emptyNote}
 
     const query = db.collection('notes').where('uid', '==', uid).orderBy('created');
 
     const notes = collectionData(query, 'id').pipe(startWith([]));
 
     function add() {
-        let newNote: Partial<NoteType> = {
+        let addingNote: Partial<NoteType> = {
+            ...newNote,
             uid: uid,
-            text: text,
-            pinned: pinned,
-            color: color,
-            tags: tags,
             created: Date.now(),
             updated: Date.now(),
         }
-        db.collection('notes').add(newNote);
-        text = '';
+        db.collection('notes').add(addingNote);
+        newNote = {...emptyNote};
     }
 
     function editItem(event) {
         let editedNote: Partial<NoteType> = {
+            title: event.detail.title,
             text: event.detail.text,
             pinned: event.detail.pinned,
             color: event.detail.color,
@@ -41,7 +44,7 @@
             updated: Date.now(),
         }
         const newNote = event.detail;
-        db.collection('notes').doc(newNote.id).update(editedNote);
+        db.collection('notes').doc(newNote.id).update({...newNote, updated: Date.now()});
     }
 
     function removeItem(event) {
@@ -63,8 +66,19 @@
 
     {/each}
 </ul>
-
-<label>
-    <input bind:value={text}>
+<label>Title
+    <input bind:value={newNote.title}>
+</label>
+<label>Text
+    <input bind:value={newNote.text}>
+</label>
+<label>Color
+    <input bind:value={newNote.color}>
+</label>
+<label>Pinned
+    <input type="checkbox" bind:checked={newNote.pinned}>
+</label>
+<label>Tags
+    <input bind:value={newNote.tags}>
 </label>
 <button class="button is-info" on:click={add}>Add Note</button>

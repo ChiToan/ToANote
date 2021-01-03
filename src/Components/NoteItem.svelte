@@ -5,32 +5,38 @@
 
     const dispatch = createEventDispatcher();
 
-    function remove() {
-        dispatch('remove', note.id);
+    function removeNote() {
+        dispatch('remove', note);
     }
 
-    function editNote(newNote:NoteType) {
+    function editNote() {
         dispatch('edit', newNote);
         toggleEditing();
     }
 
     function toggleEditing() {
-        newNote = note;
+        newNote = {...note};
         editing = !editing
     }
 
-    let newNote: NoteType = note;
-
-    // export let id: number; // document ID
-    export let editing: boolean;
     export let note: NoteType;
+    let editing: boolean = false;
+    let newNote = {...note};
 </script>
 
 <style>
     li {
-        display: flex;
         font-size: 1.2em;
         font-weight: bold;
+        list-style: none;
+    }
+
+    li span, label {
+        display: block;
+    }
+
+    div {
+        background-color: var(--background-color);
     }
 
     span {
@@ -38,14 +44,17 @@
     }
 </style>
 
-<li in:fly="{{ x: 900, duration: 500 }}" out:fade style="background: {newNote.color}">
+<li in:fly="{{ x: 900, duration: 500 }}" out:fade>
 
     {#if editing}
+        <label> Title
+            <input type="text" bind:value={newNote.title}>
+        </label>
         <label> Text
             <input type="text" bind:value={newNote.text}>
         </label>
         <label>
-            <input type="checkbox" bind:value={newNote.pinned}>
+            <input type="checkbox" bind:checked={newNote.pinned}>
         </label>
         <label>Color
             <input type="text" bind:value={newNote.color}>
@@ -53,15 +62,16 @@
         <label>Tags
             <input type="text" bind:value={newNote.tags}>
         </label>
-        <button on:click={editNote(note)}> ✔️</button>
+        <button on:click={editNote}> ✔️</button>
     {:else}
-        <label>
-            <input type="checkbox" bind:value={newNote.pinned}>
-        </label>
+        <span>{ note.pinned? '📌' :'' }</span>
+        <span>{ note.title }</span>
         <span>{ note.text }</span>
-        <button on:click={toggleEditing()}> 📝</button>
+        <span>{ note.color }</span>
+        <span>{ note.tags }</span>
+        <button on:click={toggleEditing}> 📝</button>
     {/if}
 
-    <button on:click={remove}> 🗑</button>
+    <button on:click={removeNote}> 🗑</button>
 
 </li>
