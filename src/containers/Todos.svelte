@@ -2,7 +2,7 @@
     import {db} from '../firebase';
     import {collectionData} from 'rxfire/firestore';
     import {startWith} from 'rxjs/operators';
-    import TodoItem from "./TodoItem.svelte";
+    import TodoItem from "../components/TodoItem.svelte";
 
     // User ID passed from parent
     export let uid: string;

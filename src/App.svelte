@@ -1,6 +1,6 @@
 <script lang="ts">
     export let name: string;
-    import Login from './Components/Login.svelte'
+    import Login from './containers/Login.svelte'
 </script>
 
 <style>

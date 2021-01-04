@@ -2,20 +2,13 @@
     import {db} from '../firebase';
     import {collectionData} from 'rxfire/firestore';
     import {startWith} from 'rxjs/operators';
-    import NoteItem from "./NoteItem.svelte";
-    import NoteInput from "./NoteInput.svelte"
+    import NoteItem from "../components/NoteItem.svelte";
+    import NoteInput from "../components/NoteInput.svelte";
     import type {NoteType} from "../types/note.type";
+    import Modal from "../shared/Modal.svelte"
 
     // User ID passed from parent
     export let uid;
-
-    let colorPalette: string[] = [
-        "#f1fffa",
-        "#bde2e9",
-        "#f6f3b3",
-        "#7ea5ec",
-        "#ffa7a7"
-    ]
 
     const query = db.collection('notes').where('uid', '==', uid).orderBy('created');
 
@@ -44,15 +37,6 @@
         const {id} = event.detail;
         db.collection('notes').doc(id).delete();
     }
-
-    function toggleInput() {
-        let content = document.getElementById('collapsed');
-        if (content.style.maxHeight){
-            content.style.maxHeight = null;
-        } else {
-            content.style.maxHeight = "999px";
-        }
-    }
 </script>
 
 <style>
@@ -60,7 +44,7 @@
         display: grid;
         grid-gap: 10px;
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        grid-auto-rows: 200px;
+        grid-auto-rows: minmax(120px, 1fr);
         margin: 1em 0;
         padding: 0;
     }
@@ -69,27 +53,24 @@
         margin: 0;
         display: inline-block;
     }
-
-    /* Style the collapsible content. Note: hidden by default */
-    #collapsed {
-        padding: 0 1em;
-        max-height: 0;
-        overflow: hidden;
-        transition: 0.5s;
-    }
 </style>
 
 <header>
     <h3>Notes list</h3>
-    <button id="collapse-button" on:click={toggleInput}>+</button>
+
+    <Modal>
+        <div slot="trigger" let:open>
+            <button on:click={open}>New Note +</button>
+        </div>
+        <div slot="header"></div>
+        <div slot="content" let:close>
+            <NoteInput on:save={add} on:close={close}/>
+        </div>
+    </Modal>
 </header>
-<div id="collapsed">
-    <NoteInput colorPalette={colorPalette} on:save={add}/>
-    <br/>
-</div>
 
 <ul class="grid">
     {#each $notes as note}
-        <NoteItem note={note} on:remove={removeItem} on:edit={editItem} colorPalette={colorPalette}/>
+        <NoteItem note={note} on:remove={removeItem} on:edit={editItem}/>
     {/each}
 </ul>

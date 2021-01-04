@@ -4,7 +4,7 @@ export type NoteType = {
     title: string;
     text: string;
     pinned: boolean;
-    color: 0|1|2|3|4|5;
+    color: number;
     tags: string[];
     created: number;
     updated: number;
