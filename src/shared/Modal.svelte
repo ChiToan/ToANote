@@ -1,113 +1,113 @@
 <script context="module" lang="ts">
-    // for passing focus on to the next Modal in the queue.
-    // A module context level object is shared among all its component instances. [Read More Here](https://svelte.dev/tutorial/sharing-code)
-    const modalList: HTMLElement[] = []
+  // for passing focus on to the next Modal in the queue.
+  // A module context level object is shared among all its component instances. [Read More Here](https://svelte.dev/tutorial/sharing-code)
+  const modalList: HTMLElement[] = []
 </script>
 
 <script lang="ts">
-    import {booleanStore} from '../stores'
+  import {booleanStore} from '../stores'
 
-    const store = booleanStore(false)
-    const {isOpen, open, close} = store
+  const store = booleanStore(false)
+  const {isOpen, open, close} = store
 
-    function keydown(e: KeyboardEvent) {
-        e.stopPropagation()
-        if (e.key === 'Escape') {
-            close()
-        }
+  function keydown(e: KeyboardEvent) {
+    e.stopPropagation()
+    if (e.key === 'Escape') {
+      close()
     }
+  }
 
-    function transitionend(e: TransitionEvent) {
-        const node = e.target as HTMLElement
-        node.focus()
-    }
+  function transitionend(e: TransitionEvent) {
+    const node = e.target as HTMLElement
+    node.focus()
+  }
 
-    function modalAction(node: HTMLElement) {
-        const returnFn = []
-        // for accessibility
-        if (document.body.style.overflow !== 'hidden') {
-            const original = document.body.style.overflow
-            document.body.style.overflow = 'hidden'
-            returnFn.push(() => {
-                document.body.style.overflow = original
-            })
-        }
-        node.addEventListener('keydown', keydown)
-        node.addEventListener('transitionend', transitionend)
-        node.focus()
-        modalList.push(node)
-        returnFn.push(() => {
-            node.removeEventListener('keydown', keydown)
-            node.removeEventListener('transitionend', transitionend)
-            modalList.pop()
-            // Optional chaining to guard against empty array.
-            modalList[modalList.length - 1]?.focus()
-        })
-        return {
-            destroy: () => returnFn.forEach((fn) => fn()),
-        }
+  function modalAction(node: HTMLElement) {
+    const returnFn = []
+    // for accessibility
+    if (document.body.style.overflow !== 'hidden') {
+      const original = document.body.style.overflow
+      document.body.style.overflow = 'hidden'
+      returnFn.push(() => {
+        document.body.style.overflow = original
+      })
     }
+    node.addEventListener('keydown', keydown)
+    node.addEventListener('transitionend', transitionend)
+    node.focus()
+    modalList.push(node)
+    returnFn.push(() => {
+      node.removeEventListener('keydown', keydown)
+      node.removeEventListener('transitionend', transitionend)
+      modalList.pop()
+      // Optional chaining to guard against empty array.
+      modalList[modalList.length - 1]?.focus()
+    })
+    return {
+      destroy: () => returnFn.forEach((fn) => fn()),
+    }
+  }
 </script>
 
 <style>
-    div.modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        opacity: 1;
-    }
+  div.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+  }
 
-    div.modal:not(:focus-within) {
-        transition: opacity 0.1ms;
-        opacity: 0.99;
-    }
+  div.modal:not(:focus-within) {
+    transition: opacity 0.1ms;
+    opacity: 0.99;
+  }
 
-    div.backdrop {
-        background-color: rgba(0, 0, 0, 0.4);
-        position: absolute;
-        width: 100%;
-        height: 100%;
-    }
+  div.backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
 
+  div.content-wrapper {
+    z-index: 10;
+    max-width: 70vw;
+    border-radius: 0.3rem;
+    background-color: white;
+  }
+
+  @media (max-width: 767px) {
     div.content-wrapper {
-        z-index: 10;
-        max-width: 70vw;
-        border-radius: 0.3rem;
-        background-color: white;
+      max-width: 100vw;
     }
-
-    @media (max-width: 767px) {
-        div.content-wrapper {
-            max-width: 100vw;
-        }
-    }
+  }
 </style>
 
 <slot name="trigger" {open}>
-    <!-- fallback trigger to open the modal -->
-    <button on:click={open}>Open</button>
+  <!-- fallback trigger to open the modal -->
+  <button on:click={open}>Open</button>
 </slot>
 {#if $isOpen}
-    <div class="modal" use:modalAction tabindex="0">
-        <div class="backdrop" on:click={close}></div>
+  <div class="modal" use:modalAction tabindex="0">
+    <div class="backdrop" on:click={close}></div>
 
-        <div class="content-wrapper">
-            <slot name="header" {store}>
-                <!-- fallback -->
-                <div>
-                    <h1>Your Modal Heading Goes Here...</h1>
-                </div>
-            </slot>
-
-            <div class="content">
-                <slot name="content" {store} {close}/>
-            </div>
+    <div class="content-wrapper">
+      <slot name="header" {store}>
+        <!-- fallback -->
+        <div>
+          <h1>Your Modal Heading Goes Here...</h1>
         </div>
+      </slot>
 
+      <div class="content">
+        <slot name="content" {store} {close}/>
+      </div>
     </div>
+
+  </div>
 {/if}
