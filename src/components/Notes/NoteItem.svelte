@@ -22,14 +22,17 @@
 <style>
   li {
     list-style: none;
-    align-self: start;
+    align-self: stretch;
     justify-self: stretch;
   }
 
-  .card {
-    padding: 1em;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  .note-item {
     white-space: pre-line;
+  }
+
+  .note-item:hover {
+    cursor: pointer;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
   }
 
   li span {
@@ -39,13 +42,12 @@
 
 
 <Modal>
-  <li class="card"
+  <li class="note-item card"
       in:fly="{{ x: 900, duration: 500 }}" let:open on:click={open}
       out:fade slot="trigger"
       style="background-color: {colorPalette[note.color]}"
   >
-    <span>{ note.pinned ? '📌' : '' }</span>
-    <span><b>{ note.title }</b></span>
+    <span>{ note.pinned ? '📌  ' : '' }<b>{ note.title }</b></span>
     <span>{ note.text }</span>
     <span>{ note.tags }</span>
   </li>
