@@ -6,7 +6,7 @@
   import PinOff from "../../shared/icons/pin-off.svg";
 
   export let note: NoteType = null;
-  export const deletable: boolean = false;
+  export let deletable: boolean = false;
 
   let emptyNote: Partial<NoteType> = {
     title: '',
