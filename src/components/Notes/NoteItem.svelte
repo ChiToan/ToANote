@@ -5,6 +5,7 @@
   import {colorPalette} from "../../stores";
   import Modal from "../../shared/Modal.svelte";
   import NoteInput from "./NoteInput.svelte";
+  import Pin from "../../shared/icons/pin.svg";
 
   const dispatch = createEventDispatcher();
 
@@ -47,7 +48,12 @@
       out:fade slot="trigger"
       style="background-color: {colorPalette[note.color]}"
   >
-    <span>{ note.pinned ? '📌  ' : '' }<b>{ note.title }</b></span>
+    <div class="split">
+      <span><b>{ note.title }</b></span>
+      {#if note.pinned}
+        <Pin class="icon"/>
+      {/if}
+    </div>
     <span>{ note.text }</span>
     <span>{ note.tags }</span>
   </li>

@@ -4,6 +4,8 @@
   import {colorPalette} from "../../stores";
   import Pin from "../../shared/icons/pin.svg";
   import PinOff from "../../shared/icons/pin-off.svg";
+  import ContentSave from "../../shared/icons/content-save.svg"
+  import Delete from "../../shared/icons/delete.svg"
 
   export let note: NoteType = null;
   export let deletable: boolean = false;
@@ -108,11 +110,6 @@
     background: none;
     border: none;
   }
-
-  .split {
-    display: flex;
-    justify-content: space-between;
-  }
 </style>
 
 <div class="note-input card" style="background-color:{colorPalette[newNote.color]}">
@@ -152,8 +149,12 @@
            placeholder="Tags"
            type="text">
   </label>
-  <button on:click={saveNote}>Save Note</button>
-  {#if deletable}
-    <button on:click={deleteNote}>Delete Note</button>
-  {/if}
+  <div class="split">
+      <button on:click={saveNote} class="button-transparent">
+        <ContentSave class="icon"/></button>
+    {#if deletable}
+          <button on:click={deleteNote} class="button-transparent">
+            <Delete class="icon"/></button>
+    {/if}
+  </div>
 </div>
