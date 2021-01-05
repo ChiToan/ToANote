@@ -78,7 +78,6 @@
     z-index: 10;
     max-width: 70vw;
     border-radius: 0.3rem;
-    background-color: white;
   }
 
   @media (max-width: 767px) {

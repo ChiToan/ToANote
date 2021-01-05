@@ -6,6 +6,7 @@ import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
+import svelteSVG from "rollup-plugin-svelte-svg";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -64,6 +65,7 @@ export default {
 			sourceMap: !production,
 			inlineSources: !production
 		}),
+		svelteSVG(),
 
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated

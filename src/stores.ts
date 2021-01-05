@@ -5,8 +5,9 @@ export const colorPalette: string[] = [
   "#89edff",
   "#f6f3b3",
   "#7ea5ec",
-  "#ffa7a7",
+  "#ff9797",
   "#d6a7ff",
+  "#ffb9e9",
 ]
 
 export function booleanStore(initial: boolean) {

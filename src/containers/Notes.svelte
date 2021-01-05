@@ -6,13 +6,21 @@
   import NoteInput from "../components/Notes/NoteInput.svelte";
   import type {NoteType} from "../types/note.type";
   import Modal from "../shared/Modal.svelte"
+  import {Observable} from "rxjs";
 
   // User ID passed from parent
   export let uid;
 
   const query = db.collection('notes').where('uid', '==', uid).orderBy('created');
 
-  const notes = collectionData(query, 'id').pipe(startWith([]));
+  const notes: Observable<unknown[] | any[]> = collectionData(query, 'id').pipe(startWith([]));
+  let key: keyof NoteType = null;
+  let keyValue = null;
+
+  let filteredNotes = (notes, key?: keyof NoteType, keyValue?) => {
+    if (key && keyValue) return notes.filter((note) => note[key] == keyValue)
+    else return notes
+  }
 
   function add(event) {
     let addingNote: Partial<NoteType> = {
@@ -43,10 +51,22 @@
   .grid {
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-auto-rows: minmax(120px, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-rows: auto;
     margin: 1em 0;
     padding: 0;
+  }
+
+  /*noinspection CssInvalidPropertyValue*/
+  @supports (grid-template-rows: masonry) {
+    /*noinspection CssInvalidPropertyValue*/
+    .grid {
+      grid-template-rows: masonry;
+    }
+  }
+
+  input[type=checkbox] {
+    display: none;
   }
 
   h3 {
@@ -70,7 +90,7 @@
 </header>
 
 <ul class="grid">
-  {#each $notes as note}
+  {#each filteredNotes($notes) as note}
     <NoteItem note={note} on:remove={removeItem} on:edit={editItem}/>
   {/each}
 </ul>

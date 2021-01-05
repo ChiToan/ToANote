@@ -6,6 +6,8 @@ html, body {
   --primary-font: ghostwhite;
   --background-color: ghostwhite;
   --background-font: black;
+  --icon: black;
+  --icon-disabled: #666666;
 }
 
 body {
@@ -68,4 +70,15 @@ button:not(:disabled):active {
 
 button:focus {
   border-color: #666;
+}
+
+.card {
+  padding: 1em;
+  border-radius: 0.5em;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.disabled {
+  fill: var(--icon-disabled);
+  color: var(--icon-disabled);
 }

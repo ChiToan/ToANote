@@ -1,7 +1,9 @@
 <script lang="ts">
   import type {NoteType} from "../../types/note.type";
-  import {createEventDispatcher} from "svelte";
+  import {createEventDispatcher, onMount} from "svelte";
   import {colorPalette} from "../../stores";
+  import Pin from "../../shared/icons/pin.svg";
+  import PinOff from "../../shared/icons/pin-off.svg";
 
   export let note: NoteType = null;
   export const deletable: boolean = false;
@@ -15,6 +17,13 @@
   }
 
   let newNote: Partial<NoteType> = note ? {...note} : {...emptyNote};
+
+  let ref = null;
+  onMount(async () => {
+    autoResize();
+    if (!note)
+      ref.focus()
+  });
 
   const dispatch = createEventDispatcher();
 
@@ -37,8 +46,6 @@
 <style>
   .note-input {
     max-width: 480px;
-    padding: 1em;
-    margin: 0 auto;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
 
@@ -73,8 +80,19 @@
     display: inline-block;
   }
 
-  input[type=text] {
+  input[type=checkbox] {
+    display: none;
+  }
+
+  :global(svg.icon) {
+    cursor: pointer;
+  }
+
+  #title {
     width: 100%;
+    background: none;
+    border: none;
+    font-weight: bold;
   }
 
   #text-area {
@@ -82,15 +100,44 @@
     resize: none;
     width: 100%;
     overflow: hidden;
+    background: none;
+    border: none;
+  }
+
+  #tags {
+    background: none;
+    border: none;
+  }
+
+  .split {
+    display: flex;
+    justify-content: space-between;
   }
 </style>
 
-<div class="note-input" style="background-color:{colorPalette[newNote.color]}">
+<div class="note-input card" style="background-color:{colorPalette[newNote.color]}">
+  <div class="split">
+    <label>
+      <input bind:value={newNote.title}
+             bind:this={ref}
+             id="title"
+             placeholder="Title"
+             type="text">
+    </label>
+    <label>
+      <input bind:checked={newNote.pinned} type="checkbox">
+      {#if newNote.pinned}
+        <Pin class="icon"/>
+      {:else}
+        <PinOff class="icon disabled"/>
+      {/if}
+    </label>
+  </div>
   <label>
-    <input bind:value={newNote.title} placeholder="Title" type="text">
-  </label>
-  <label>
-    <textarea bind:value={newNote.text} id="text-area" on:input={autoResize} placeholder="Text"></textarea>
+    <textarea bind:value={newNote.text}
+              id="text-area"
+              on:input={autoResize}
+              placeholder="Text"></textarea>
   </label>
   {#each colorPalette as color, index}
     <label
@@ -100,11 +147,13 @@
     </label>
   {/each}
   <label>
-    <input bind:checked={newNote.pinned} type="checkbox">
-  </label>
-  <label>
-    <input bind:value={newNote.tags} placeholder="Tags" type="text">
+    <input bind:value={newNote.tags}
+           id="tags"
+           placeholder="Tags"
+           type="text">
   </label>
   <button on:click={saveNote}>Save Note</button>
-  <button on:click={deleteNote}>Delete Note</button>
+  {#if deletable}
+    <button on:click={deleteNote}>Delete Note</button>
+  {/if}
 </div>
