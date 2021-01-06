@@ -19,20 +19,20 @@
 </script>
 
 <style>
-  .is-complete {
-    text-decoration: line-through;
-    color: green;
-  }
+    .is-complete {
+        text-decoration: line-through;
+        color: green;
+    }
 
-  li {
-    display: flex;
-    font-size: 1.2em;
-    font-weight: bold;
-  }
+    li {
+        display: flex;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
 
-  span {
-    margin-right: auto;
-  }
+    span {
+        margin-right: auto;
+    }
 </style>
 
 <li in:fly="{{ x: 900, duration: 500 }}" out:fade>

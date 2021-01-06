@@ -50,41 +50,41 @@
 </script>
 
 <style>
-  div.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 1;
-  }
-
-  div.modal:not(:focus-within) {
-    transition: opacity 0.1ms;
-    opacity: 0.99;
-  }
-
-  div.backdrop {
-    background-color: rgba(0, 0, 0, 0.4);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-  }
-
-  div.content-wrapper {
-    z-index: 10;
-    max-width: 70vw;
-    border-radius: 0.3rem;
-  }
-
-  @media (max-width: 767px) {
-    div.content-wrapper {
-      max-width: 100vw;
+    div.modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 1;
     }
-  }
+
+    div.modal:not(:focus-within) {
+        transition: opacity 0.1ms;
+        opacity: 0.99;
+    }
+
+    div.backdrop {
+        background-color: rgba(0, 0, 0, 0.4);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    div.content-wrapper {
+        z-index: 10;
+        max-width: 70vw;
+        border-radius: 0.3rem;
+    }
+
+    @media (max-width: 767px) {
+        div.content-wrapper {
+            max-width: 100vw;
+        }
+    }
 </style>
 
 <slot name="trigger" {open}>

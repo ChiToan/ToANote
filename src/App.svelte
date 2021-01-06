@@ -4,19 +4,19 @@
 </script>
 
 <style>
-  h1 {
-    color: cadetblue;
-  }
+    h1 {
+        color: cadetblue;
+    }
 
-  main {
-    margin: 20px;
-  }
+    main {
+        margin: 20px;
+    }
 </style>
 
 
 <main class="content">
 
-  <h1>Welcome to {name}</h1>
+  <h1>Welcome {name}</h1>
 
   <Login/>
 

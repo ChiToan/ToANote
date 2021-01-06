@@ -31,9 +31,9 @@
 </script>
 
 <style>
-  input {
-    display: block
-  }
+    input {
+        display: block
+    }
 </style>
 
 <ul>

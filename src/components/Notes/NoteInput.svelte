@@ -46,77 +46,77 @@
 </script>
 
 <style>
-  .note-input {
-    max-width: 480px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
+    .note-input {
+        max-width: 480px;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
 
-  .input-circle {
-    height: 25px;
-    width: 25px;
-    border-radius: 50%;
-    display: inline-block;
-    border: 2px solid rgba(0, 0, 0, 0);
-    margin: 0 0.5em;
-  }
+    .input-circle {
+        height: 25px;
+        width: 25px;
+        border-radius: 50%;
+        display: inline-block;
+        border: 2px solid rgba(0, 0, 0, 0);
+        margin: 0 0.5em;
+    }
 
-  .input-circle:hover {
-    border: 2px solid rgba(0, 0, 0, 0.25);
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-  }
+    .input-circle:hover {
+        border: 2px solid rgba(0, 0, 0, 0.25);
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+        cursor: pointer;
+    }
 
-  .selected {
-    box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.25);
-    border: 2px solid rgba(0, 0, 0, 0.5);
-  }
+    .selected {
+        box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.25);
+        border: 2px solid rgba(0, 0, 0, 0.5);
+    }
 
-  .selected:hover {
-    cursor: default;
-    box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.25);
-    border: 2px solid rgba(0, 0, 0, 0.5);
-  }
+    .selected:hover {
+        cursor: default;
+        box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.25);
+        border: 2px solid rgba(0, 0, 0, 0.5);
+    }
 
-  input[type=radio] {
-    visibility: hidden;
-    display: inline-block;
-  }
+    input[type=radio] {
+        visibility: hidden;
+        display: inline-block;
+    }
 
-  input[type=checkbox] {
-    display: none;
-  }
+    input[type=checkbox] {
+        display: none;
+    }
 
-  :global(svg.icon) {
-    cursor: pointer;
-  }
+    :global(svg.icon) {
+        cursor: pointer;
+    }
 
-  #title {
-    width: 100%;
-    background: none;
-    border: none;
-    font-weight: bold;
-  }
+    #title {
+        width: 100%;
+        background: none;
+        border: none;
+        font-weight: bold;
+    }
 
-  #text-area {
-    box-sizing: border-box;
-    resize: none;
-    width: 100%;
-    overflow: hidden;
-    background: none;
-    border: none;
-  }
+    #text-area {
+        box-sizing: border-box;
+        resize: none;
+        width: 100%;
+        overflow: hidden;
+        background: none;
+        border: none;
+    }
 
-  #tags {
-    background: none;
-    border: none;
-  }
+    #tags {
+        background: none;
+        border: none;
+    }
 </style>
 
 <div class="note-input card" style="background-color:{colorPalette[newNote.color]}">
   <div class="split">
     <label>
-      <input bind:value={newNote.title}
-             bind:this={ref}
+      <input bind:this={ref}
+             bind:value={newNote.title}
              id="title"
              placeholder="Title"
              type="text">
@@ -150,11 +150,13 @@
            type="text">
   </label>
   <div class="split">
-      <button on:click={saveNote} class="button-transparent">
-        <ContentSave class="icon"/></button>
+    <button class="button-transparent" on:click={saveNote}>
+      <ContentSave class="icon"/>
+    </button>
     {#if deletable}
-          <button on:click={deleteNote} class="button-transparent">
-            <Delete class="icon"/></button>
+      <button on:click={deleteNote} class="button-transparent">
+        <Delete class="icon"/>
+      </button>
     {/if}
   </div>
 </div>

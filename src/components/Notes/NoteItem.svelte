@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {fade, fly} from 'svelte/transition';
+  import {fade} from 'svelte/transition';
   import {createEventDispatcher} from 'svelte';
   import type {NoteType} from "../../types/note.type";
   import {colorPalette} from "../../stores";
@@ -21,30 +21,33 @@
 </script>
 
 <style>
-  li {
-    list-style: none;
-    align-self: stretch;
-    justify-self: stretch;
-  }
+    li {
+        list-style: none;
+        align-self: stretch;
+        justify-self: stretch;
+    }
 
-  .note-item {
-    white-space: pre-line;
-  }
+    .note-item {
+        white-space: pre-line;
+    }
 
-  .note-item:hover {
-    cursor: pointer;
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
-  }
+    .note-item:hover {
+        cursor: pointer;
+        box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+    }
 
-  li span {
-    display: block;
-  }
+    li span {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 </style>
 
 
 <Modal>
   <li class="note-item card"
-      in:fly="{{ x: 900, duration: 500 }}" let:open on:click={open}
+      let:open
+      on:click={open}
       out:fade slot="trigger"
       style="background-color: {colorPalette[note.color]}"
   >

@@ -1,3 +1,5 @@
+import type firebase from "firebase";
+
 export type NoteType = {
   uid: string;
   id: string;
@@ -6,6 +8,6 @@ export type NoteType = {
   pinned: boolean;
   color: number;
   tags: string[];
-  created: number;
-  updated: number;
+  created: firebase.firestore.Timestamp;
+  updated: firebase.firestore.Timestamp;
 }
