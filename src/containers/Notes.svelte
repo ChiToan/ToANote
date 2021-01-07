@@ -75,8 +75,10 @@
   }
 
   h2 {
-    margin: 0;
+    margin: 0.5em 0;
     display: inline-block;
+    text-align: center;
+    width: 100%;
   }
 
   label {
@@ -96,24 +98,28 @@
   button:hover {
     border-color: #777;
   }
+
+  .vertical {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 </style>
 
 <header>
-  <div class="split">
-    <div class="split">
-      <h2>Simple Notes</h2>
-      <Modal>
-        <div let:open slot="trigger">
-          <button on:click={open} class="round-button">
-            <NotePlus />
-          </button>
-        </div>
-        <div slot="header" />
-        <div let:close slot="content">
-          <NoteInput on:close={close} on:save={add} />
-        </div>
-      </Modal>
-    </div>
+  <h2>Simple Notes</h2>
+  <div class="vertical">
+    <Modal>
+      <div let:open slot="trigger">
+        <button on:click={open} class="round-button">
+          <NotePlus />
+        </button>
+      </div>
+      <div slot="header" />
+      <div let:close slot="content">
+        <NoteInput on:close={close} on:save={add} />
+      </div>
+    </Modal>
 
     <label>
       <Magnify
