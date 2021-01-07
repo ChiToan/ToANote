@@ -5,15 +5,18 @@ html, body {
   --primary-accent: cadetblue;
   --primary-font: ghostwhite;
   --background-color: ghostwhite;
-  --background-font: black;
-  --icon: black;
+  --background-font: #222;
+  --icon: #222;
   --icon-disabled: #666666;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 body {
   color: #333;
   margin: 0;
-  padding: 8px;
+  padding: 0;
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
@@ -88,6 +91,14 @@ button:focus {
   justify-content: space-between;
 }
 
+.round-button {
+  border-radius: 100%;
+}
+
+.round-button:hover {
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
 .button-transparent {
   background: none;
   border: none;
@@ -98,4 +109,8 @@ button:focus {
 .button-transparent:active {
   background: none;
   border: none;
+}
+
+.icon:hover {
+  filter: drop-shadow(3px 0 2px rgba(0,0,0,0.3));
 }

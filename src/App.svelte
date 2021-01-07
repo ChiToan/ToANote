@@ -1,23 +1,25 @@
 <script lang="ts">
-  export let name: string;
-  import Login from './containers/Login.svelte'
+  import Login from "./containers/Login.svelte";
 </script>
 
 <style>
-    h1 {
-        color: cadetblue;
-    }
+  main {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 80rem;
+    flex: 1 0 auto;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 
+  @media only screen and (max-width: 767px) {
     main {
-        margin: 20px;
+      margin: 0;
     }
+  }
 </style>
 
-
 <main class="content">
-
-  <h1>Welcome {name}</h1>
-
-  <Login/>
-
+  <Login />
 </main>

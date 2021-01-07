@@ -7,7 +7,6 @@ export type NoteType = {
   text: string;
   pinned: boolean;
   color: number;
-  tags: string[];
   created: firebase.firestore.Timestamp;
   updated: firebase.firestore.Timestamp;
 }

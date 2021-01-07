@@ -1,4 +1,4 @@
-import {writable} from 'svelte/store';
+import { writable } from 'svelte/store';
 
 export const colorPalette: string[] = [
   "#dbffec",
@@ -12,7 +12,7 @@ export const colorPalette: string[] = [
 
 export function booleanStore(initial: boolean) {
   const isOpen = writable<boolean>(initial)
-  const {set, update} = isOpen
+  const { set, update } = isOpen
   return {
     isOpen,
     open: () => set(true),
