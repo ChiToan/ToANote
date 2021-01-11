@@ -96,13 +96,6 @@
     <div class="backdrop" on:click={close} />
 
     <div class="content-wrapper">
-      <slot name="header" {store}>
-        <!-- fallback -->
-        <div>
-          <h1>Your Modal Heading Goes Here...</h1>
-        </div>
-      </slot>
-
       <div class="content">
         <slot name="content" {store} {close} />
       </div>

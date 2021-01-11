@@ -115,7 +115,6 @@
           <NotePlus />
         </button>
       </div>
-      <div slot="header" />
       <div let:close slot="content">
         <NoteInput on:close={close} on:save={add} />
       </div>

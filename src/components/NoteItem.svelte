@@ -28,7 +28,8 @@
   }
 
   .note-item {
-    white-space: pre-line;
+    box-sizing: border-box;
+    height: 100%;
   }
 
   .note-item:hover {
@@ -38,6 +39,7 @@
 
   li span {
     display: block;
+    white-space: pre-wrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -58,7 +60,6 @@
       <span>{note.text}</span>
     </li>
   </div>
-  <div slot="header" />
   <div let:close slot="content">
     <NoteInput
       deletable={true}
